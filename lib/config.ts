@@ -1,6 +1,8 @@
 const config = {
   env: {
-    apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT,
+    apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT!,
+    prodApiEndpoint: process.env.NEXT_PUBLIC__PROD_API_ENDPOINT!,
+
     imageKit: {
       publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY!,
       privateKey: process.env.NEXT_PUBLIC_IMAGEKIT_PRIVATE_KEY!,
@@ -13,6 +15,7 @@ const config = {
       qtashUrl: process.env.QTASH_URL,
       qtashToken: process.env.QTASH_TOKEN!,
     },
+    resend: process.env.RESEND_TOKEN!,
   },
 };
 export default config;
