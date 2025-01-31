@@ -20,16 +20,8 @@ export const sendEmail = async ({
   subject: string;
   message: string;
 }) => {
-  await qtashClient.publishJSON({
-    api: {
-      name: "email",
-      provider: resend({ token: config.env.resend }),
-    },
-    body: {
-      from: "Acme <onboarding@resend.dev>",
-      to: [email],
-      subject: subject,
-      html: `${message}`,
-    },
-  });
+  console.log("Function sendEmail executed");
+  console.log("Sending email to:", email);
+
+  return "Test response"; // Sementara return dummy response
 };
