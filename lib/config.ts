@@ -1,6 +1,6 @@
 const config = {
   env: {
-    apiEndpoint: "https://university-library-beta.vercel.app",
+    apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT!,
     prodApiEndpoint: process.env.NEXT_PUBLIC__PROD_API_ENDPOINT!,
 
     imageKit: {
