@@ -20,8 +20,26 @@ export const sendEmail = async ({
   subject: string;
   message: string;
 }) => {
-  console.log("Function sendEmail executed");
-  console.log("Sending email to:", email);
+  try {
+    console.log("Sending email to:", email); // Cek email tujuan
 
-  return "Test response"; // Sementara return dummy response
+    const response = await qtashClient.publishJSON({
+      api: {
+        name: "email",
+        provider: resend({ token: config.env.resend }),
+      },
+      body: {
+        from: "Acme <onboarding@resend.dev>",
+        to: [email],
+        subject: subject,
+        html: `<p>${message}</p>`,
+      },
+    });
+
+    console.log("Resend response:", response); // Cek response dari API Resend
+    return response;
+  } catch (error) {
+    console.error("Failed to send email:", error);
+    throw new Error("Failed to send email");
+  }
 };

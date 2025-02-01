@@ -12,7 +12,7 @@ type InitialData = {
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 const THREE_DAY_IN_MS = 3 * ONE_DAY_IN_MS;
-const THIRTY_DAY_IN_MS = 30 * ONE_DAY_IN_MS;
+const THIRTY_DAY_IN_MS = 230 * ONE_DAY_IN_MS;
 
 const getUserState = async (email: string): Promise<UserState> => {
   const user = await db
