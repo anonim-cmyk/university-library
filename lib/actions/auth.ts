@@ -1,5 +1,4 @@
 "use server";
-
 import { signIn } from "@/auth";
 import { db } from "@/database/drizzle";
 import { users } from "@/database/schema";
@@ -33,7 +32,7 @@ export const signInWithCredentials = async (
 
     return { success: true };
   } catch (error) {
-    console.log(error, "Sign In error");
+    console.log("Sign In error", error);
     return { success: false, error: "Sign In error" };
   }
 };
@@ -42,7 +41,10 @@ export const signUp = async (params: AuthCredentials) => {
   const ip = (await headers()).get("x-forwarder-for") || "127.0.0.1";
   const { success } = await ratelimit.limit(ip);
 
-  if (!success) return redirect("/too-fast");
+  if (!success) {
+    console.log("Rate limit exceeded for IP:", ip);
+    return redirect("/too-fast");
+  }
 
   const existingUser = await db
     .select()
@@ -64,9 +66,10 @@ export const signUp = async (params: AuthCredentials) => {
       password: hashedPassword,
       universityCard,
     });
+    console.log("User Inserted success");
 
     await workflowClient.trigger({
-      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
+      url: `${config.env.apiEndpoint}/api/workflows/onboarding`,
       body: {
         email,
         fullName,
